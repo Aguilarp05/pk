@@ -1,0 +1,115 @@
+/* Easter egg de las eras de Taylor Swift (ver eras.js) */
+.era-bg { display: none; }
+html.era .era-bg {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .6s ease;
+}
+html.era .era-bg.show { opacity: 1; }
+.era-scene { display: block; width: 100%; height: 100%; }
+html.era .page { border-top-color: var(--accent); }
+html.era h1, html.era h2, html.era h3, html.era .thanks .signature { font-family: var(--font-head); }
+html.era body,
+html.era .thanks p:not(.signature),
+html.era .timeline .year,
+html.era .record-info .eyebrow,
+html.era .const-label { font-family: var(--font-body); }
+html.era[data-era="red"] h1, html.era[data-era="red"] h2 { letter-spacing: .02em; text-transform: uppercase; }
+
+/* Midnights: el reloj marca las 12 */
+.clock-hand { transition: transform 1.2s cubic-bezier(.3, 1.4, .5, 1); transform-origin: 1420px 330px; }
+.clock-hand.hour { transform: rotate(-7.5deg); }
+.clock-hand.minute { transform: rotate(-90deg); }
+html.midnight .clock-hand { transform: rotate(0deg); }
+
+/* partículas de los efectos al tocar */
+.era-fx {
+    position: fixed;
+    inset: 0;
+    z-index: 26;
+    overflow: hidden;
+    pointer-events: none;
+}
+.era-part { position: absolute; transform: translate(-50%, -50%); line-height: 1; }
+.era-part.dot { width: 7px; height: 7px; border-radius: 50%; }
+.era-part.firefly {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffe27a;
+    box-shadow: 0 0 10px 3px rgba(255, 226, 122, .7);
+}
+.era-part.flash { inset: 0; left: 0 !important; top: 0 !important; transform: none; background: #fff; }
+.era-part.typed {
+    padding: 4px 10px;
+    background: #fbf9f3;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .15);
+    font: 1.3rem "Special Elite", "Courier New", monospace;
+    color: #1c1c1c;
+    white-space: nowrap;
+}
+.era-part.confetti { width: 8px; height: 14px; border-radius: 2px; }
+
+/* reputation: serpiente que sigue al mouse */
+.snake-seg {
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #6f8f6f, #1f2a1f);
+    box-shadow: 0 0 0 1.5px #0b0b0b;
+    pointer-events: none;
+    z-index: 25;
+}
+.snake-seg.head { background: radial-gradient(circle at 35% 35%, #7fa07f, #1f2a1f); }
+.snake-seg.head::before, .snake-seg.head::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    width: 4px;
+    height: 5px;
+    border-radius: 50%;
+    background: #b9ff6b;
+}
+.snake-seg.head::before { left: 4px; }
+.snake-seg.head::after { right: 4px; }
+
+.era-chip {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    z-index: 27;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .6);
+    color: #fff;
+    font: italic 600 1rem "Fraunces", Georgia, serif;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-50%, -10px);
+    transition: opacity .35s, transform .35s;
+    pointer-events: none;
+}
+.era-chip.on { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) {
+    .clock-hand { transition: none; }
+    html.era .era-bg { transition: none; }
+}
+
+/* algunas letras se ven más chicas (o son cursivas) a la misma medida: se compensan */
+html.era[data-era="speaknow"] body { font-size: 1.36rem; line-height: 1.6; }
+html.era[data-era="debut"] body,
+html.era[data-era="reputation"] body { font-size: 1.2rem; }
+html.era[data-era="1989"] body,
+html.era[data-era="red"] body,
+html.era[data-era="fearless"] body,
+html.era[data-era="evermore"] body { font-size: 1.12rem; }
+html.era[data-era="red"] body { font-weight: 300; }
+html.era[data-era="red"] strong { font-weight: 500; }
+html.era[data-era="speaknow"] .timeline .year { font-size: 1.1rem; }

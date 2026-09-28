@@ -1,0 +1,180 @@
+/* Modo Disney: se activa al encontrar los 6 Hidden Mickeys (o escribiendo "disney"). Ver disney.js */
+.disney-bg { display: none; }
+html.disney .disney-bg {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    animation: disney-in .8s ease both;
+}
+@keyframes disney-in { from { opacity: 0; } to { opacity: 1; } }
+.disney-scene { display: block; width: 100%; height: 100%; }
+html.disney .page { border-top-color: #f2b823; }
+html.disney h1, html.disney h2, html.disney h3, html.disney .thanks .signature { font-family: "Cinzel Decorative", Georgia, serif; }
+html.disney body,
+html.disney .thanks p:not(.signature),
+html.disney .timeline .year,
+html.disney .record-info .eyebrow { font-family: "Nunito", system-ui, sans-serif; }
+
+/* arco de polvo de hadas que se dibuja al entrar */
+.pixie-arc { stroke-dasharray: 1; stroke-dashoffset: 1; animation: pixie-draw 2.4s ease-out .3s forwards; }
+@keyframes pixie-draw { to { stroke-dashoffset: 0; } }
+.firework-burst { transform-box: fill-box; transform-origin: center; animation: burst 3.2s ease-out infinite; }
+@keyframes burst {
+    0% { transform: scale(.1); opacity: 0; }
+    12% { opacity: 1; }
+    45% { transform: scale(1); opacity: .9; }
+    70%, 100% { transform: scale(1.15); opacity: 0; }
+}
+
+/* linternas de Enredados */
+.lantern {
+    position: absolute;
+    bottom: -40px;
+    width: 12px;
+    height: 16px;
+    border-radius: 4px 4px 6px 6px;
+    background: linear-gradient(#ffe08a, #ff9a3c);
+    box-shadow: 0 0 12px 4px rgba(255, 170, 60, .55);
+    animation: lantern-rise var(--t, 24s) linear var(--d, 0s) infinite;
+}
+@keyframes lantern-rise {
+    0% { transform: translate(0, 0) scale(var(--s, 1)); opacity: 0; }
+    8% { opacity: 1; }
+    50% { transform: translate(var(--sway, 20px), -55vh) scale(var(--s, 1)); }
+    100% { transform: translate(0, -118vh) scale(calc(var(--s, 1) * .6)); opacity: .15; }
+}
+
+/* la casa de Up */
+.up-house {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    width: 150px;
+    animation: up-fly 46s linear 1s infinite;
+}
+.up-house svg { display: block; width: 100%; animation: up-bob 3.2s ease-in-out infinite alternate; }
+@keyframes up-fly { from { transform: translateX(-200px); } to { transform: translateX(calc(100vw + 40px)); } }
+@keyframes up-bob { from { transform: translateY(0) rotate(-3deg); } to { transform: translateY(18px) rotate(3deg); } }
+
+/* esferas de memoria de Intensamente (se pueden tocar) */
+.memory-orb {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff 0 12%, var(--c) 45%, color-mix(in srgb, var(--c) 60%, #000) 100%);
+    box-shadow: 0 0 18px 4px color-mix(in srgb, var(--c) 60%, transparent);
+    cursor: pointer;
+    pointer-events: auto;
+    animation: orb-float 3.6s ease-in-out var(--d, 0s) infinite alternate;
+    -webkit-tap-highlight-color: transparent;
+}
+@keyframes orb-float { from { transform: translateY(0); } to { transform: translateY(-14px); } }
+.orb-label {
+    position: fixed;
+    z-index: 28;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #fff;
+    color: #1d1b3a;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+    font: 700 .95rem "Nunito", system-ui, sans-serif;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* personajes de Disney en el desfile */
+.mickey-d svg { width: 80px; }
+.stitch svg { width: 86px; }
+.olaf { --dur: 9s; }
+.olaf svg { width: 80px; }
+.olaf .leg-a, .olaf .leg-b, .olaf svg { animation-duration: .36s; }
+.olaf .flake { animation: flake .9s linear infinite; }
+.olaf .flake:nth-of-type(2n) { animation-delay: -.3s; }
+.olaf .flake:nth-of-type(3n) { animation-delay: -.6s; }
+@keyframes flake { from { transform: translateY(0); opacity: 1; } to { transform: translateY(22px); opacity: 0; } }
+.joy svg { width: 80px; filter: drop-shadow(0 0 8px rgba(255, 224, 102, .8)); }
+.joy .memory { animation: joy-orb .8s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center; }
+@keyframes joy-orb { to { transform: translateY(-4px) scale(1.06); } }
+.actor.buzz { bottom: 40vh; }
+.buzz svg { width: 140px; animation: buzz-fly 1.4s ease-in-out infinite alternate; }
+@keyframes buzz-fly { from { transform: translateY(0) rotate(-3deg); } to { transform: translateY(-26px) rotate(3deg); } }
+.buzz-shout {
+    position: absolute;
+    left: 40px;
+    top: -30px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    white-space: nowrap;
+    font: 700 .95rem "Nunito", system-ui, sans-serif;
+    color: #6a3fa0;
+}
+.actor.fish { bottom: 60px; gap: 26px; }
+.fish svg { animation: swim 1s ease-in-out infinite alternate; }
+.fish .nemo { width: 58px; animation-delay: -.4s; }
+.fish .dory { width: 100px; }
+.fish .tail { transform-box: fill-box; transform-origin: 100% 50%; animation: tail .25s linear infinite alternate; }
+@keyframes swim { from { transform: translateY(0) rotate(-3deg); } to { transform: translateY(-22px) rotate(3deg); } }
+@keyframes tail { from { transform: scaleY(1); } to { transform: scaleY(.6); } }
+.bubbles { position: absolute; left: -10px; bottom: 20px; }
+.bubbles span {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(160, 210, 255, .9);
+    opacity: 0;
+    animation: bubble 1.6s ease-out infinite;
+}
+.bubbles span:nth-child(2) { left: 14px; animation-delay: .5s; width: 6px; height: 6px; }
+.bubbles span:nth-child(3) { left: -6px; animation-delay: 1s; width: 11px; height: 11px; }
+@keyframes bubble { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-70px); opacity: 0; } }
+
+/* gorro de mago de Mickey sobre el nombre */
+.sorcerer-hat { display: none; }
+html.disney header h1 { position: relative; }
+html.disney .sorcerer-hat {
+    display: block;
+    position: absolute;
+    left: -.42em;
+    top: -.95em;
+    width: 1.25em;
+    transform: rotate(-20deg);
+    transform-origin: 50% 90%;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .25));
+    animation: hat-in .9s cubic-bezier(.3, 1.6, .5, 1) both;
+    pointer-events: none;
+}
+.sorcerer-hat .hat-star { animation: twinkle 1.6s ease-in-out infinite alternate; }
+.sorcerer-hat .hat-star:nth-of-type(2n) { animation-delay: -.8s; }
+@keyframes hat-in { from { transform: translateY(-40px) rotate(-60deg); opacity: 0; } to { transform: rotate(-20deg); opacity: 1; } }
+html.disney header { padding-top: 64px; }
+
+/* Tiana y Naveen: Naveen brinca hacia ella y sale un corazón */
+.naveen { animation: naveen-hop 7s ease-in-out infinite; }
+@keyframes naveen-hop {
+    0%, 30% { transform: translate(0, 0); }
+    38% { transform: translate(-60px, -46px); }
+    46%, 72% { transform: translate(-110px, 24px); }
+    80% { transform: translate(-60px, -40px); }
+    88%, 100% { transform: translate(0, 0); }
+}
+.frog-heart { opacity: 0; animation: frog-heart 7s ease-out infinite; }
+@keyframes frog-heart {
+    0%, 50% { opacity: 0; transform: translateY(0); }
+    56% { opacity: 1; }
+    70%, 100% { opacity: 0; transform: translateY(-40px); }
+}
+.evangeline { animation: twinkle 2.4s ease-in-out infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+    .naveen, .frog-heart, .sorcerer-hat, .sorcerer-hat .hat-star, .evangeline { animation: none; }
+    .lantern, .up-house, .up-house svg, .memory-orb, .firework-burst { animation: none; }
+    .lantern { bottom: auto; top: var(--y, 50%); }
+    .pixie-arc { animation: none; stroke-dashoffset: 0; }
+}
