@@ -4,7 +4,7 @@ Página personal que Pablo (Juan Pablo Aguilar Varela) le hizo a Karla (Karla Al
 
 ## Estado actual (septiembre 2026)
 
-- **Nada está subido a GitHub todavía.** Todo está solo en la compu de Pablo. Antes de subir, confirmar con él: si se sube este `CLAUDE.md` (el repo es público y Karla podría leerlo; opción: agregarlo a `.gitignore`) y si se publica con **GitHub Pages**.
+- **Vista previa en la rama `preview-2026`** (subida el 28 de septiembre de 2026, incluye este `CLAUDE.md` por decisión de Pablo). `main` sigue con la versión vieja; no mezclar a `main` hasta que Pablo diga. Para el link: GitHub Pages desde la rama `preview-2026`.
 - **⚠️ QUITAR ANTES DE PUBLICAR:** el atajo temporal `"sudokuprueba"` en `index.html` (abre el sudoku desde cero para que Pablo lo pruebe).
 - **Pendientes de Pablo:**
   1. **La carta nueva** para la sección de Agradecimiento (hoy tiene el texto viejo de 2025).
