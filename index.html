@@ -297,6 +297,20 @@
             color: var(--accent);
         }
         .interest p { font-size: 1rem; }
+        .past-me {
+            margin: 0 0 10px;
+            padding: 2px 0 2px 14px;
+            border-left: 2px solid var(--accent);
+        }
+        .past-me-label {
+            display: block;
+            margin-bottom: 2px;
+            font-size: .8rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .past-me p { font-style: italic; color: var(--muted); }
 
         /* ---------- Hidden Mickeys: 6 escondidos; al encontrarlos todos se activa el modo Disney ---------- */
         .hidden-mickey { cursor: pointer; transition: fill .4s, opacity .4s, filter .4s; -webkit-tap-highlight-color: transparent; }
@@ -2054,6 +2068,114 @@
             color: var(--accent);
         }
 
+        /* ---------- Polaroids: salen una por una al abrir el sobre y luego se quedan debajo de la carta ---------- */
+        .polaroid {
+            width: min(340px, 82vw);
+            margin: 0 auto;
+            padding: 14px 14px 18px;
+            background: #fffdf8;
+            color: #2e2618;
+            border-radius: 3px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, .28), 0 2px 6px rgba(0, 0, 0, .12);
+            transform: rotate(var(--tilt, -2deg));
+        }
+        .polaroid-photos { display: grid; gap: 6px; aspect-ratio: 1; background: #222; }
+        .polaroid-photos.n2 { grid-template-columns: 1fr 1fr; }
+        .polaroid-photos.n3 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+        .polaroid-photos.n3 img:first-child { grid-row: 1 / 3; }
+        .polaroid-photos.n4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+        .polaroid-photos.n5 { grid-template-columns: repeat(6, 1fr); grid-template-rows: 1fr 1fr; }
+        .polaroid-photos.n5 img { grid-column: span 2; }
+        .polaroid-photos.n5 img:nth-child(-n+2) { grid-column: span 3; }
+        .polaroid-photos.n6 { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }
+        .polaroid-photos img { width: 100%; height: 100%; min-height: 0; object-fit: cover; display: block; }
+        .polaroid-caption {
+            margin: 14px 4px 0;
+            font: 500 1.28rem/1.3 "Caveat", "Bradley Hand", cursive;
+            text-align: center;
+        }
+        .polaroids { margin-top: 40px; }
+        .tattoos-title { margin-top: 36px; font-size: 1.1rem; color: var(--accent); }
+        .tattoos.polaroids { margin-top: 18px; }
+        .life-plan { margin-top: 14px; }
+        .someday { margin-top: 12px; padding: 0; list-style: none; }
+        .someday li { position: relative; padding: 5px 0 5px 26px; }
+        .someday li::before {
+            content: "";
+            position: absolute;
+            left: 2px;
+            top: .75em;
+            width: 10px;
+            height: 10px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+        }
+        .someday li:last-child { font-weight: 600; }
+        .polaroids .polaroid { animation: polaroid-in .5s ease both; }
+        @keyframes polaroid-in { from { opacity: 0; transform: translateY(14px) rotate(0deg); } }
+        .polaroid-nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 26px; }
+        .polaroid-nav button {
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            background: transparent;
+            color: var(--accent);
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        .polaroid-nav button:disabled { opacity: .3; cursor: default; }
+        .polaroid-dots { display: flex; gap: 7px; }
+        .polaroid-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); opacity: .35; }
+        .polaroid-dots span.on { background: var(--accent); opacity: 1; }
+        .polaroid-show {
+            position: fixed;
+            inset: 0;
+            z-index: 32;
+            display: flex;
+            overflow-y: auto;
+            padding: 24px 16px;
+            background: rgba(20, 14, 6, .72);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            animation: ps-fade .5s ease both;
+        }
+        .polaroid-show[hidden] { display: none; }
+        @keyframes ps-fade { from { opacity: 0; } }
+        .polaroid-show .polaroid { animation: polaroid-drop .7s cubic-bezier(.2, .9, .3, 1.1) both; cursor: pointer; }
+        @keyframes polaroid-drop { from { opacity: 0; transform: translateY(-40px) rotate(8deg) scale(.92); } }
+        .polaroid-show .polaroid-nav { color: #f3eadb; }
+        .polaroid-show .polaroid-dots span { background: #f3eadb; }
+        .polaroid-show .polaroid-dots span.on { background: #f2b823; }
+        .ps-next {
+            margin-top: 22px;
+            padding: 9px 22px;
+            border: 0;
+            border-radius: 999px;
+            background: #f2b823;
+            color: #2e2618;
+            font: 600 1rem "Source Sans 3", system-ui, sans-serif;
+            cursor: pointer;
+        }
+        .ps-inner { display: flex; flex-direction: column; align-items: center; margin: auto; }   /* margin auto: centrado, pero si no cabe se puede bajar */
+        .polaroid-photos img { cursor: zoom-in; }
+        .photo-zoom {
+            position: fixed;
+            inset: 0;
+            z-index: 33;
+            display: grid;
+            place-items: center;
+            padding: 16px;
+            background: rgba(10, 7, 3, .9);
+            cursor: zoom-out;
+            animation: ps-fade .3s ease both;
+        }
+        .photo-zoom[hidden] { display: none; }
+        .photo-zoom img { max-width: calc(100vw - 32px); max-height: calc(100vh - 32px); border-radius: 4px; box-shadow: 0 10px 40px rgba(0, 0, 0, .5); }
+        @media (prefers-reduced-motion: reduce) {
+            .polaroid-show, .polaroid-show .polaroid, .polaroids .polaroid { animation: none; }
+        }
+
         /* ---------- Playlist: vinilo ---------- */
         .record-player {
             display: flex;
@@ -2320,6 +2442,7 @@
             .disc { left: 126px; top: 6px; width: 158px; height: 158px; }
             .hm-vinyl { left: 146px; top: 146px; }
             .timeline li { grid-template-columns: 1fr; gap: 2px; padding-left: 20px; }
+            .timeline .year-br { display: none; }   /* en celular la fecha va en una sola línea */
             .timeline li::before { left: 5px; top: 12px; }
             .timeline .body { padding-left: 0; }
             .timeline .body::before { display: none; }
@@ -2470,7 +2593,17 @@
 
 <section class="reveal">
     <h2>Sobre mí</h2>
-    <p>Me llamo Juan Pablo Aguilar Varela, nací un sábado 5 de octubre del 2002 a las 2 pm en San Luis Río Colorado, Sonora, hijo de Juan Pablo e Indira, actualmente estoy en la carrera de Ingeniería en Tecnologías Computacionales en el Tec de Monterrey, tengo 23 años y vivo en Monterrey, NL y estoy haciendo esta página para alguien que quiero y aprecio mucho, una mensa llamada Karla Alessandra Sánchez Saviñón que tuve la suerte de conocer en mi carrera de pura casualidad pero aun así le agradezco a la vida darme esta oportunidad porque me cambió la vida definitivamente, me dio un lugar en Monterrey y con ella en donde puedo ser yo mismo sin miedo a ser juzgado o rechazado, ha visto todos mis miedos (son demasiados) y aun así no se ha alejado (más o menos jajajaj) y eso siempre lo voy a apreciar demasiado. Me ha enseñado parte de su mundo que después se ha vuelto parte del mío, me ha traído cosas buenas a la vida, espero que la vida me dé el tiempo suficiente para pagárselo de igual manera. Te quiero Karla, Siempre.</p>
+    <p>Me sorprende lo mucho que he cambiado en este año y medio.</p>
+    <p>Sigo siendo Juan Pablo Aguilar Varela, nacido un sábado 5 de octubre de 2002 a las 2 de la tarde en San Luis Río Colorado, Sonora, hijo de Juan Pablo Aguilar Limón e Indira Enedina Varela Brito.</p>
+    <p>Pero ya no soy el Juan de hace dos años.</p>
+    <p>Han pasado muchas cosas desde entonces. Sobreviví a un semestre en el que pensé que se me acababa la vida, y esto me cambió. Me hizo hacer cosas que jamás pensé que podría haber hecho algún día.</p>
+    <p>Me tocó vivir un semestre prácticamente nuevo, con gente que conocía de distancia, y conocer gente nueva. Hice mi primer sistema para un negocio, el cual a día de hoy ya me pagan. Volví a pintar; terminé un cuadro al que llevaba meses sin poder avanzar, hice otro y actualmente trabajo en uno nuevo.</p>
+    <p>Volví a ir al cine religiosamente jajaja. Bueno, para cuando escribo esta carta tengo un mes sin ir, pero ajá, creo que he ido muchas veces a lo largo del año.</p>
+    <p>Pero, sobre todo, siento que encontré una versión más tranquila de mí. Tal vez menos explosiva, pero con más hambre.</p>
+    <p>Tal vez también he cambiado en la forma en la que quiero a la gente. El Juan de 22 podía gritar a los cuatro vientos el amor que le tenía a las personas. Tal vez no era tan recatado, y había cosas que simplemente sentía y decía sin pensarlo demasiado.</p>
+    <p>El Juan de 24 sigue queriendo igual de fuerte, creo. Solo que ahora piensa un poco más antes de abrir la boca. Tal vez me volví un poco más realista con la forma en que pienso, no sé, pero bueno.</p>
+    <p>Esto ha sido todo un viaje que ya lleva tres años. Hay cosas que tal vez cambiaría, pero no me arrepiento de nada, la verdad. Estoy muy feliz con las cosas que he conseguido y con mi gente, tú siendo una de ellas.</p>
+    <p>No sé qué tanto de nuestras vidas seguiremos compartiendo, ni qué forma tendrá esto dentro de algunos años. No quiero prometerte algo que no sé si puedo cumplir. Lo que sí sé es que mientras esté aquí, voy a estar.</p>
 </section>
 
 <section class="reveal">
@@ -2497,7 +2630,7 @@
             <span class="sub">Mis actividades eran la preparación de distintos tipos de comidas, desde hamburguesas hasta pizzas, así como ensaladas y otros tipos de platillos que se manejan en el restaurante.</span></div>
         </li>
         <li class="current">
-            <span class="year">2026-Hoy</span>
+            <span class="year">2026-<br class="year-br">20 oct 2026</span>
             <div class="body"><strong>Encargado de turno en Tortas el Ring</strong><br>
             <span class="sub">Mis labores son estar en caja atendiendo a los clientes y manejando los cobros, acomodar la mercancía y mantener el orden y la limpieza del local para que todo funcione bien durante el turno. Cuando se ocupa, también apoyo en la cocina con la preparación de las tortas, asegurándome de que salgan rápido y con la calidad de siempre.</span></div>
         </li>
@@ -2555,35 +2688,47 @@
     <div class="interests">
         <div class="interest wide">
             <h3>Música</h3>
-            <p>Mis artistas favoritos son Mac Miller, Frank Ocean y NSQK, realmente escucho todo tipo de música, una de mis actividades favoritas es descubrir música nueva,</p>
-            <p>Mis canciones del momento son: "Droga" de Mora, "Tuvimos Futuro" de LAGOS, "Eso Que Tú Llamas Amor" de pablopablo, "Nunca Volvieron" de Morat, "Krav Maga" de NSQK, y "Calling After Me" de Wallows </p>
+            <p>La música es algo que me acompaña en mi día a día; honestamente, es un tema del que podría hablar por horas y horas y jamás acabar. Mis artistas favoritos son Mac Miller, NSQK y Bad Bunny.</p>
+            <p>Actualmente, si tuviera que elegir mis canciones del momento, serían "El tiempo que necesites" de NSQK, "Aquí no es así" de Caifanes, "Everybody's Changing" de Keane y "Matilda" de Harry Styles. Ojalá la música me dure toda la vida para poder descubrir mucho más y enseñártela, lo digo de corazón.</p>
         </div>
         <div class="interest">
             <h3>Cocinar</h3>
-            <p>Desde chico siempre me ha encantado cocinar, mi platillo favorito de hacer es el spaghetti con albóndigas, otros platillos que sé preparar son hamburguesas, Caldo de pollo, Pollo con papas y arroz, Enchiladas (varios tipos), Ensalada de papa. </p>
-            <p>Hace poco preparé un mole que estaba muy bueno </p>
+            <p>La cocina ha sido una gran etapa en mi vida, ya que en los últimos 6 años he trabajado en este ámbito. Amo la cocina, me genera una satisfacción que muy pocas cosas me dan, y honestamente es muy bonito y lindo el cocinar para alguien, incluso aunque sea un cliente.</p>
+            <p>La cocina es un negocio muy noble en el que, si tú la tratas y la admiras, ella te responde de la misma manera. No cambiaría jamás todo lo que he aprendido en cocina y todo el tiempo que le he dedicado; siento que me ha hecho la persona que soy ahorita.</p>
         </div>
         <div class="interest">
             <h3>Cine<svg class="hidden-mickey inline-hm" data-hm="cine" viewBox="0 0 24 22" aria-hidden="true"><circle cx="12" cy="14" r="7.5"/><circle cx="4.5" cy="5.5" r="4.5"/><circle cx="19.5" cy="5.5" r="4.5"/></svg></h3>
-            <p>Amo ir al cine, es una de mis actividades favoritas, hubo un tiempo en que todas las semanas iba mínimo una vez, a ver cualquier película que estuviera disponible, esto lo hacía muy entretenido porque descubría películas muy extrañas </p>
-            <p>Mis películas favoritas son: Good Will Hunting, La La Land, Spider-man: Into the Spiderverse, Hacksaw Ridge y mi saga favorita es Star Wars. Dato curioso, la última película que vi en el cine fue Thunderbolts*. gran película 9/10 </p>
+            <p>Otro tema del que podría hablar todo el día sin parar, la verdad jajaj.</p>
+            <p>En su momento, el cine me salvó la vida. Hubo una época muy complicada en la que vivía por que llegaran los lunes para poder ir con mi papá. Eso fue cambiando a lo largo del tiempo, y aunque hoy tal vez ya no voy una vez a la semana (cosa que me encantaría, honestamente), siempre le voy a estar agradecido y va a quedar como un sueño el hacer cine; tal vez en un futuro lo consiga llevar a cabo.</p>
+            <p>Mis películas favoritas son La La Land, Star Wars: El ataque de los clones, Good Will Hunting y Spider-Man: Into the Spider-Verse. La última película que vi fue Resident Evil y wow, me sorprendió, la verdad. Sí me gustó; si no me acuerdo mal, fue un 7/10.</p>
         </div>
         <div class="interest wide">
-            <h3>Video Juegos<svg class="hidden-mickey inline-hm" data-hm="videojuegos" viewBox="0 0 24 22" aria-hidden="true"><circle cx="12" cy="14" r="7.5"/><circle cx="4.5" cy="5.5" r="4.5"/><circle cx="19.5" cy="5.5" r="4.5"/></svg></h3>
-            <p>Toda la vida he sido de jugar video juegos, desde chico mi primer consola fue un PlayStation 2 donde jugaba DMC y God of War, y mi última consola fue un Nintendo Switch donde juego actualmente Mario Kart, </p>
-            <p>Mis videojuegos favoritos son: The Binding of Isaac, Pokémon Alpha Sapphire(Amo toda la saga pero ese en especial es mi favorito), Call of Duty: Black Ops 2, The Walking Dead(Telltale, saga completa), Doom: Eternal </p>
+            <h3>Videojuegos<svg class="hidden-mickey inline-hm" data-hm="videojuegos" viewBox="0 0 24 22" aria-hidden="true"><circle cx="12" cy="14" r="7.5"/><circle cx="4.5" cy="5.5" r="4.5"/><circle cx="19.5" cy="5.5" r="4.5"/></svg></h3>
+            <p>Desde niño empecé a jugar videojuegos. Recuerdo estar en la casa de mis tatas jugando Mario Kart en el Nintendo 64 de mi tío. Luego, cuando me mudé a SLRC con mi papá, él tenía un PS2 en donde jugaba God of War 2, GTA Vice City, DMC y muchos juegos más.</p>
+            <p>Luego de eso pasé por un gran desfile de consolas: Nintendo DS, donde conocí Pokémon, siendo Pokémon Diamante mi primer juego y donde conocí a mi Pokémon favorito, Luxray. Luego de ahí nos pasamos al Wii, donde los fines de semana eran para jugar Wii Sports con mi papá, Smash con mis primos, LEGO Star Wars.</p>
+            <p>Me compraron el Xbox 360 años después para jugar con mis amigos, donde jugaba COD. Amo los zombies de COD, era súper viciado y quería hacer todos los Easter Eggs, siendo mi mapa favorito Mob of the Dead. Gears of War, sobre todo el 3, Minecraft, FIFA… Aquí fue donde conocí una de mis sagas favoritas: The Walking Dead de Telltale.</p>
+            <p>Luego vino el Xbox One, que wow, demasiados, demasiados recuerdos: noches en vela, toda una pandemia con mis mejores amigos, todos los años nuevos partidas de Monopoly de 3-4 hrs, Clubes Pro en FIFA, donde yo siempre elegía ser mediocampista para dar muchas asistencias y tirar los tiros libres pq los sabía meter. Extraño demasiado esos tiempos, honestamente. Hice streams, no sé si nunca te conté esa época, pero cuando empezó la pandemia empecé a hacer streams de juegos en Xbox. Jugaba mucho FIFA, FUT Champions, y me gustaba pasar campañas: me pasé el Cyberpunk 2077 y el Dark Souls 1. Lo extraño también.</p>
+            <p>Por aquí también entró el 3DS, donde jugaba Pokémon más que nada, y luego un Switch, mi primer compra con tarjeta de crédito, que le di más uso cuando me vine aquí a Mty y jugaba Mario Kart con mis roomies que los 2 años que lo tuve arrumbado, la verdad. Y ahorita ya la computadora, donde he jugado juegos como The Binding of Isaac, Spider-Man, God of War, Marvel Rivals, RDR 2 y Disco Elysium. Tengo mil juegos más por jugar, pero no hay tiempo (ni control, se me descompuso jajajaj).</p>
+            <p>Mis juegos favoritos actualmente son The Binding of Isaac, The Walking Dead, Pokémon Alpha Sapphire, Spider-Man y definitivamente God of War. La última saga de la mitología nórdica, wow, qué ganas, en serio, cómo lloré. Y mi saga favorita siempre será Kingdom Hearts, siendo mi favorito el Birth by Sleep.</p>
         </div>
-        <div class="interest">
-            <h3>Aprender cosas nuevas</h3>
-            <p>En general, soy muy curioso entonces cualquier tipo de cosa nueva me entretiene porque es como un mundo nuevo, incluso datos o cosas curiosas también </p>
-        </div>
-        <div class="interest">
+        <div class="interest wide">
             <h3>Pasar tiempo con mi gente</h3>
-            <p>Amo estar solo, pero hay un grupo de personas con las que podría estar todo el tiempo y jamás me cansaría (mientras normalmente me da miedo hartarme de la gente con ellos es todo lo contrario) </p>
+            <blockquote class="past-me">
+                <span class="past-me-label">Yo del 2025</span>
+                <p>Amo estar solo, pero hay un grupo de personas con las que podría estar todo el tiempo y jamás me cansaría (mientras normalmente me da miedo hartarme de la gente con ellos es todo lo contrario)</p>
+            </blockquote>
+            <p>Sigo pensando lo mismo, aún no he cambiado en ese aspecto.</p>
         </div>
         <div class="interest wide">
             <h3>Series</h3>
-            <p>Para que una serie me guste me tiene que atrapar totalmente, y estas son las que más he disfrutado, How i Met Your Mother, Suits, Brooklyn 99, Fullmetal Alchemist y Assassination Classroom (si los últimos 2 son animes, perdón soy Otaku:( ))</p>
+            <blockquote class="past-me">
+                <span class="past-me-label">Yo del 2025</span>
+                <p>Para que una serie me guste me tiene que atrapar totalmente, y estas son las que más he disfrutado, How i Met Your Mother, Suits, Brooklyn 99, Fullmetal Alchemist y Assassination Classroom (si los últimos 2 son animes, perdón soy Otaku:( ))</p>
+            </blockquote>
+            <p>Honestamente, de ese tiempo para acá no he visto muchas series. Vi The Bear ya completo y wow, la amé. Tengo planeados 2/3 tatuajes de esa serie, sobre todo el "Let it rip", que para mí es un mensaje hermoso: es la nota que le dejó el hermano de Carmy (el prota). El hermano se suicidó meses antes, y cuenta que él siempre le decía esta nota como un "tú puedes". A veces ocupamos eso.</p>
+            <p>Pero actualmente la serie que estoy viendo es <strong>Ted Lasso</strong>, y wow, ya casi termino la segunda temporada y creo que no ha habido capítulo en el que no sienta que quiero crecer después de acabarlo. La amo. El personaje de Ted es hermoso, tiene mil momentos buenos y que te hacen creer que la vida es bonita incluso entre todo lo malo que tenemos alrededor. "Be curious, not judgmental" creo que es una de sus frases más icónicas, honestamente, y creo que es una gran frase, al igual que la de "Be a goldfish".</p>
+            <p>Mis series favoritas: HIMYM, siempre estará ahí, definitivamente; Suits, le tengo un gran cariño aunque sigo sin acabarla; The Bear, claro, yo soy Carmy; Ted Lasso, creo que ya puede entrar aquí, ojalá un día ser tan grande como él.</p>
+            <p>Y mis animes favoritos son Fullmetal Alchemist: Brotherhood, lo amo, amo la historia de Ed y Al; Gintama, una serie muy de nicho, honestamente, pero loco, qué buena serie; Bleach, sin palabras, qué buen revive le hicieron con las nuevas temporadas, honestamente; y yo creo que One Piece, aunque no esté al día, me encanta y le amo, y mil más. A veces sí extraño mi temporada de otaku (como 6 años), la verdad.</p>
         </div>
     </div>
 </section>
@@ -2601,21 +2746,64 @@
         </div>
         <div class="legend-item">
             <span class="swatch wish"></span>
-            <div><strong>Países que quiero conocer</strong><br><span class="sub">Alemania, España, Italia, Ecuador, Colombia</span></div>
+            <div><strong>Países que quiero conocer</strong><br><span class="sub">Ecuador, Alemania, España, Italia, Colombia, Vietnam</span></div>
         </div>
         <div class="legend-item">
             <span class="swatch arsenal"></span>
             <div><strong>Reino Unido</strong><br><span class="sub arsenal-text">E IR A UN PARTIDO DEL ARSENAL</span></div>
         </div>
     </div>
+
+    <h3 class="tattoos-title">Tatuajes que algún día me haré</h3>
+    <div class="tattoos polaroids"></div>
+
+    <h3 class="tattoos-title">Mi plan</h3>
+    <ul class="timeline life-plan">
+        <li>
+            <span class="year">2026-2027</span>
+            <div class="body"><strong>Trabajar en Ladder y en otra app</strong><br>
+            <span class="sub">En lo que termino el Tec, y conseguir clientes para Ladder.</span></div>
+        </li>
+        <li>
+            <span class="year">2026-2027</span>
+            <div class="body"><strong>Juntar dinero para comprar un carro</strong></div>
+        </li>
+        <li>
+            <span class="year">2026-2030</span>
+            <div class="body"><strong>Conseguir un trabajo que me permita estudiar una maestría</strong><br>
+            <span class="sub">Y juntar dinero para pagarla.</span></div>
+        </li>
+    </ul>
+
+    <h3 class="tattoos-title">Algún día</h3>
+    <ul class="someday">
+        <li>Viajar a uno de los países que mencioné (aunque me gustaría hacer al menos un viaje antes de 2028)</li>
+        <li>Publicar un libro</li>
+        <li>Llevar a mi papá a Italia</li>
+        <li>Llevar a mi papá a un partido de la NFL</li>
+        <li>Ir a todos los conciertos posibles</li>
+        <li>Abrir un restaurante</li>
+        <li>Ser feliz</li>
+    </ul>
 </section>
 
 <section class="thanks reveal" id="agradecimiento" data-lock="karla">
     <h2>Agradecimiento</h2>
     <div class="letter">
-    <p> Yo sé que en la parte de sobre mí ya te agradecí JAJAJ, pero quería decírtelo otra vez, muchas gracias por todo Karla, eres una persona muy importante para mí, desde el día uno que escuché tu introducción supe que te quería en mi vida y estoy agradecido con la vida que me ha dado la oportunidad de poder hacerlo. Todos los momentos que me han tocado vivir contigo los guardo con mucho cariño en mi corazón, no tengo mucho más que decir que no te haya dicho ya como el que estoy muy orgulloso de ti y de la persona que eres, eres una persona que irradia felicidad a los demás, tu personalidad, lo inteligente que eres y el cómo siempre logras resolver las cosas y sacarlas adelante, son cosas que realmente admiro mucho de ti, eres una persona espectacular que el mundo debería de estar agradecido con la oportunidad de tenerte en él, tú has sido mi ejemplo en muchas cosas y gracias a ti he cambiado a mejor, gracias en serio gracias, y así como tú eres tu hater número 1 jajaj yo siempre seré tu fan número 1 y estaré apoyándote y aplaudiéndote todo lo que logres en esta vida, definitivamente eres una persona que ha dejado huella en mi vida y siempre la llevaré conmigo con mucho cariño.</p>
+    <p>Hola.</p>
+    <p>¿Qué puedo decir que no te haya dicho ya? Me encanta empezar así jajaj. El hacer esta página ha sido todo un viaje, la verdad. Tú no lo sabes, pero llevo alrededor de 3 semanas trabajando en ella y estoy muy feliz de cómo ha estado quedando. Todo esto empezó en ST porque estaba checando mis repos de GitHub; en eso me reencontré con la página. Días después, mientras reflexionaba sobre mi cumpleaños, pensé en qué te iba a regalar, siendo la idea ganadora la remodelación de la página, ahora que mis habilidades y herramientas han cambiado (que no se note que no había dinero). Las otras opciones eran un carro, una casa y así, pero esta era la mejor. Así que quería una página que representara más a mi yo actual.</p>
+    <p>El día de hoy cumplo 24 años (o sea, cuando la entrego; esto lo escribo el 3 de octubre), o sea que ya van 4 cumpleaños desde que te conozco, y hace 17 días fueron 3 años de habernos conocido. Todo un viaje, la verdad. Hemos pasado por mil cosas, algunas buenas y bonitas y algunas complicadas, pero no me arrepiento de ninguna de ellas, la verdad. He amado cada uno de los momentos que he pasado contigo.</p>
+    <p>Todavía me acuerdo del día en que nos conocimos. Lit no le había prestado atención a ninguna de las presentaciones de las personas; dio la casualidad que justo escuché la tuya. Y es que, buscando un escape de un lugar en el que honestamente no quería estar, terminé encontrando algo que me hacía sentir como en casa, donde podía ser todas las versiones de mí y sería entendido, y no tengo nada más que agradecimiento por ello. La verdad, me hiciste sentir que tenía un lugar en una ciudad que no era mía, que cuando volviera aquí después de vacaciones o cualquier cosa siempre tendría a dónde volver y a alguien a quien buscar. Muchas, muchas gracias, lo digo de corazón; siempre tendrás una parte de él por esto mismo.</p>
+    <p>Como mencioné anteriormente en la carta de hace un año jaja (y aún me sigue dando miedo, la verdad), a día de hoy yo te considero una de mis mejores amigas, una persona que quiero y aprecio con todo mi corazón, alguien por quien solo siento cariño y aprecio, y siempre estaré agradecido de tenerte en mi vida. Las cosas cambian, y la vida es una de ellas, y aunque tal vez ahorita no estemos parados en la misma posición de hace uno o dos años, quiero que sepas que siempre estaré para ti.</p>
+    <p>Fue gracioso volver a leer las palabras de ese yo de hace 1 año y medio, la verdad. Han pasado tantas cosas desde entonces que no me siento totalmente esa persona, y aunque hace un año decía que quería volver a ser el yo del pasado, la verdad es que ya no: me siento muy feliz con quien soy actualmente.</p>
+    <p>Wow, esta carta ya está siendo demasiado larga jajaj, una disculpa, la verdad, pero tengo muchas cosas que decir. Ya estamos en la recta final, lo prometo.</p>
+    <p>Tengo que ser honesto contigo: esto de hacer regalos y celebrar mi cumpleaños empezó como un capricho contigo. Aunque ya te he contado esta historia, esto comenzó por una mini discusión contigo sobre los cumpleaños, pero honestamente es algo muy lindo que me gusta hacer y espero poder llevarlo a cabo muchos años más. No me gusta hacer promesas inciertas porque, como dice el dicho, "Si quieres hacer reír a Dios, cuéntale tus planes", o según Proverbios 16:9, "El corazón del hombre piensa su camino, mas Jehová endereza sus pasos"; pero sí te puedo prometer que el tiempo que la vida me permita estar aquí, realmente voy a estar. Como dije antes: mi mano siempre va a estar ahí para ti.</p>
+    <p>Todo esto empezó como un capricho. La página pasó de ser una tarea que te enseñé a un regalo de cumpleaños, que el plan es que fuera una carta que durara siempre en internet (o el tiempo que exista GitHub), pero siento que pasó a ser algo muy lindo: un viaje por estos 7 semestres, una pantalla a quienes hemos sido.</p>
+    <p>Te adoro con todo mi corazón, Karla, y espero que lo sepas. Eres una persona sorprendente; cualquiera tiene una suerte inmensa de tenerte en su vida, una de las más inteligentes que conozco, alguien demasiado interesante y graciosa (y que siempre trae muy buenos outfits, tengo que admitirlo). Podría seguir escribiendo halagos y derritiéndome en cosas bonitas sobre ti, podría llenar esto mencionando cuánto te quiero y admiro, y cómo soy tu fan número 1, y la verdad es que no acabaría, pero solo quiero que sepas que eres alguien que aprecio, amo y adoro con todo mi corazón, alguien que desde que llegó a mi vida cambió todo lo que conocía y me enseñó una manera diferente de verla, alguien que me enseñó a ver nuevos colores. Ojalá la vida me alcance para demostrarte que no solo son palabras todo lo que estoy diciendo.</p>
+    <p>Ya, para acabar, espero que te haya gustado la carta y, no sé, que te haya hecho feliz. Esto último lo escribo hoy mismo, 5 de octubre a las 3:19 de la tarde, o sea que como en una hora te estaré viendo jajaj. Y recuerda: todo esto es lo que siente alguien sorprendente e increíble (como yo) hacia ti, aunque tú también lo eres (tal vez un poco más). Y, como he dicho antes, no hay suficientes "muchos" para expresar lo siguiente, demasiado más de lo que puedo admitir, honestamente, pero quiero que sepas que</p>
     <p class="signature"> Te quiero, siempre 🌻</p>
     </div>
+    <div class="polaroids"></div>
 </section>
 
 <section class="reveal" id="playlist" data-lock="macmiller">
@@ -3476,6 +3664,9 @@
     </div>
 </div>
 
+<div class="polaroid-show" hidden aria-label="Fotos"><div class="ps-inner"></div></div>
+<div class="photo-zoom" hidden><img alt=""></div>
+
 <dialog class="update-dialog" aria-labelledby="upd-title">
     <h2 id="upd-title">Hello 👋</h2>
     <p>La página recibió una actualización. ¿La quieres ver?</p>
@@ -3617,11 +3808,12 @@
         var places = {
             "484": { name: "México",         status: "visited", at: [-102, 23.6] },
             "840": { name: "Estados Unidos", status: "visited", at: [-98, 39] },
+            "218": { name: "Ecuador",        status: "wish",    at: [-78.5, -1.5] },
             "276": { name: "Alemania",       status: "wish",    at: [10.4, 51.2] },
             "724": { name: "España",         status: "wish",    at: [-3.7, 40.2] },
             "380": { name: "Italia",         status: "wish",    at: [12.5, 42.8] },
-            "218": { name: "Ecuador",        status: "wish",    at: [-78.5, -1.5] },
             "170": { name: "Colombia",       status: "wish",    at: [-74, 4.5] },
+            "704": { name: "Vietnam",        status: "wish",    at: [106.3, 16] },
             "826": { name: "Reino Unido · E ir a un partido del Arsenal", status: "arsenal", at: [-0.13, 51.5] } // Londres
         };
 
@@ -4651,22 +4843,6 @@
         };
         render();
 
-        // ATAJO TEMPORAL para que Pablo pruebe el sudoku: escribir "sudokuprueba". QUITAR antes de publicar.
-        var typedT = "";
-        document.addEventListener("keydown", function (e) {
-            if (e.key.length !== 1) return;
-            typedT = (typedT + e.key.toLowerCase()).slice(-12);
-            if (typedT === "sudokuprueba") {
-                ["para-karla-sudoku", "para-karla-sudoku-ok", "para-karla-sudoku-tiempo", "para-karla-sudoku-errores"].forEach(function (k) {
-                    try { localStorage.removeItem(k); } catch (e) {}
-                });
-                dlg.classList.remove("won");
-                timerEl.classList.remove("done");
-                restart();
-                dlg.showModal();
-                startTimer();
-            }
-        });
     })();
 
     // Misión 21: llega una carta y después se abre la sección de Agradecimiento
@@ -4679,12 +4855,192 @@
             box.classList.add("on");
             setTimeout(function () {
                 box.classList.remove("on");
-                var sec = document.getElementById("agradecimiento");
-                if (sec) {
-                    sec.classList.add("unlocked", "visible", "just-unlocked");
-                    sec.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
+                // Primero las Polaroids, una por una; al terminar se abre la carta
+                (window.__polaroidShow || function (done) { done(); })(function () {
+                    var sec = document.getElementById("agradecimiento");
+                    if (sec) {
+                        sec.classList.add("unlocked", "visible", "just-unlocked");
+                        sec.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                });
             }, 5400);
+        };
+    })();
+
+    // Polaroids: fotos con su pie de foto. Si una tiene varias fotos, salen juntas como collage (hasta 6).
+    // pos = qué parte de la foto se ve en el cuadro (object-position), por si se corta mal.
+    (function () {
+        var POLAROIDS = [
+            { photos: [{ src: "img/polaroid-01.jpg?v=1", pos: "50% 52%" }],
+              caption: "La primer foto que me mandaste de la ¿pulsera? jajaj. Mucho tiempo fue un indicio de que llevabas algo mío contigo, aunque amo la pulsera pulsera que ahora sí traes, pq es más representativa, honestamente. Cómo me gustaría que esta siguiera existiendo. Gracias, en serio; esta foto me hizo sentir que esto era algo por lo que realmente quería apostar." },
+            { photos: [
+                { src: "img/polaroid-02-1.jpg?v=1", pos: "50% 55%" },
+                { src: "img/polaroid-02-2.jpg?v=1", pos: "50% 58%" },
+                { src: "img/polaroid-02-3.jpg?v=1", pos: "50% 50%" },
+                { src: "img/polaroid-02-4.jpg?v=1", pos: "50% 62%" },
+                { src: "img/polaroid-02-5.jpg?v=1", pos: "45% 45%" },
+                { src: "img/polaroid-02-6.jpg?v=1", pos: "40% 60%" }
+              ],
+              caption: "Fotos de tu día o cosas que metía en tu saco o mochila jajajaj. Me gustaban mucho, me hacían sentir parte de tu día, era algo muy lindo." },
+            { photos: [{ src: "img/polaroid-03.jpg?v=1", pos: "50% 45%" }],
+              caption: "Honestamente, tengo la duda de quién se robó el KitKat que iba con ese sándwich jajajaj. Siempre amaré ese día. Me acuerdo que sí pensé en dártelo de que a ti bien bien, pero honestamente me agarraste en un día que andaba tomando con Ángel en el depa. Le dije: \"Oye, ya vengo, voy al Seven\", y duré como una hora en volver jajaj. Cuando regresé ya se había acostado. Por eso no te lo llevé: no quería que me vieras en esas condiciones adentro de la escuela, probablemente." },
+            { photos: [{ src: "img/polaroid-04.jpg?v=1", pos: "50% 62%" }],
+              caption: "Un atardecer lindo en un día en el que te enojaste conmigo JAJAJAJAJ. Qué bonito que ese atardecer fue el que hizo que me contestaras en tu berrinche, después de todo un viaje de punta a punta del país jajaj (o sea, de norte a centro :) ). Ojalá la vida me ponga más cielos pintados de colores bonitos para poder enseñártelos." },
+            { photos: [
+                { src: "img/polaroid-05-1.jpg?v=1", pos: "30% 50%" },
+                { src: "img/polaroid-05-2.jpg?v=1", pos: "25% 45%" },
+                { src: "img/polaroid-05-3.jpg?v=1", pos: "50% 35%" }
+              ],
+              caption: "Poemas que me mandaste que aún a día de hoy me dejan pensando. Qué fuerte el de \"Todo Rima\", en serio, pero muy lindo. Honestamente, me cuesta leer poemas, pero siempre me abriré a entenderlos. Me acuerdo que hice un comentario del T-rex de la derecha jajaj. Fun fact: creo que nunca te conté, pero en la FIL, después de que fuimos, me compré un poemario que tú compraste, \"Te daré el olvido\". Por mucho tiempo leía un poema diario; creo que al final no leí todos y repetí bastantes, pero era algo bonito que hacer al despertar, la verdad." },
+            { photos: [
+                { src: "img/polaroid-06-1.jpg?v=1", pos: "40% 45%" },
+                { src: "img/polaroid-06-2.jpg?v=1", pos: "35% 40%" },
+                { src: "img/polaroid-06-3.jpg?v=1", pos: "65% 50%" },
+                { src: "img/polaroid-06-4.jpg?v=1", pos: "70% 50%" },
+                { src: "img/polaroid-06-5.jpg?v=1", pos: "30% 50%" }
+              ],
+              caption: "Me acuerdo lo sorprendente que fue que justo coincidiera que los dos llevamos pintura juntos; fue algo muy sorprendente jajaj. Hace poco alguien me dijo que la vida siempre encuentra una manera en la que los dos terminamos en un mismo lugar. El primer día de clases, que hicieron equipos al azar y nos tocó juntos, me hizo confirmarlo. Me encanta ese humor tan retorcido de la vida, la verdad." },
+            { photos: [
+                { src: "img/polaroid-07-1.jpg?v=1", pos: "50% 40%" },
+                { src: "img/polaroid-07-2.jpg?v=1", pos: "50% 55%" },
+                { src: "img/polaroid-07-3.jpg?v=1", pos: "50% 55%" }
+              ],
+              caption: "Otro collage de fotooooos." },
+            { photos: [{ src: "img/polaroid-08.jpg?v=1", pos: "50% 55%" }],
+              caption: "¿Dónde quedó tu diadema?" },
+            { photos: [{ src: "img/polaroid-09.jpg?v=1", pos: "50% 45%" }],
+              caption: "Oh, ahí está." },
+            { photos: [{ src: "img/polaroid-10.jpg?v=1", pos: "50% 47%" }],
+              caption: "El último día del semestre del año pasado. Honestamente, este fue el respiro después de todo; fue cuando salió el sol otra vez. Ahí tengo guardado el cuadro que hiciste, lo guardo con demasiado cariño. Un día hay que repetir esto." },
+            { photos: [{ src: "img/polaroid-11.jpg?v=1", pos: "50% 48%" }],
+              caption: "Sigo pensando que esta es mi obra maestra." },
+            { photos: [{ src: "img/polaroid-12.jpg?v=1", pos: "50% 18%" }],
+              caption: "Tengo que admitir que hay días que extraño esos tiempos donde todo era más fácil. Esta foto me la mandaste cuando trabajabas en el frasco de Mariotte con tu equipo un fin de semana; yo estaba en biblio esperando a que te desocuparas para quedarme platicando contigo un rato. Uno de los días más bonitos, y una foto que guardo en mi corazón." },
+            // La última: la única foto de los dos
+            { photos: [{ src: "img/polaroid-13.jpg?v=1", pos: "15% 50%" }],
+              caption: "¿Qué puedo decir, Karla? Aquí empezamos. La única foto que tenemos juntos, y es de cuando nos íbamos conociendo. Días que siempre llevaré en mi corazón. Cómo hemos cambiado, ¿no?" }
+        ];
+        if (!POLAROIDS.length) return;
+        var TILTS = [-2, 1.5, -1, 2.5, -2.5, 1];
+
+        // Tocar una foto la abre en grande (para leer los poemas, por ejemplo); tocar otra vez la cierra
+        var zoom = document.querySelector(".photo-zoom");
+        function closeZoom() { zoom.hidden = true; }
+        zoom.addEventListener("click", closeZoom);
+        document.addEventListener("keydown", function (e) {
+            if (!zoom.hidden && e.key === "Escape") { closeZoom(); e.stopPropagation(); e.preventDefault(); }
+        }, true);
+
+        function polaroid(item, i, lazy) {
+            var card = document.createElement("figure");
+            card.className = "polaroid";
+            card.style.setProperty("--tilt", TILTS[i % TILTS.length] + "deg");
+            var grid = document.createElement("div");
+            grid.className = "polaroid-photos n" + Math.min(item.photos.length, 6);
+            item.photos.slice(0, 6).forEach(function (ph) {
+                var img = document.createElement("img");
+                if (lazy) img.loading = "lazy";
+                img.src = ph.src;
+                img.alt = "";
+                if (ph.pos) img.style.objectPosition = ph.pos;
+                if (ph.fit) { img.style.objectFit = ph.fit; img.style.background = "#fff"; }   // fit: "contain" = se ve completa (p. ej. una frase)
+                img.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    zoom.querySelector("img").src = ph.src;
+                    zoom.hidden = false;
+                });
+                grid.appendChild(img);
+            });
+            var cap = document.createElement("figcaption");
+            cap.className = "polaroid-caption";
+            cap.textContent = item.caption;
+            card.appendChild(grid);
+            card.appendChild(cap);
+            return card;
+        }
+
+        // Flechas y puntitos; devuelve una función para ir a una foto
+        function viewer(holder, opts) {
+            var items = opts.items || POLAROIDS;
+            var i = 0, slot = document.createElement("div"), nav = document.createElement("div");
+            nav.className = "polaroid-nav";
+            nav.innerHTML = '<button type="button" aria-label="Foto anterior">‹</button><div class="polaroid-dots"></div><button type="button" aria-label="Foto siguiente">›</button>';
+            var prev = nav.children[0], dots = nav.children[1], next = nav.children[2];
+            items.forEach(function () { dots.appendChild(document.createElement("span")); });
+            if (items.length < 2) nav.hidden = true;
+            holder.appendChild(slot);
+            holder.appendChild(nav);
+            function go(n) {
+                i = Math.max(0, Math.min(items.length - 1, n));
+                slot.innerHTML = "";
+                var card = polaroid(items[i], i, opts.lazy);
+                if (opts.onCard) opts.onCard(card);
+                slot.appendChild(card);
+                prev.disabled = i === 0;
+                next.disabled = i === items.length - 1;
+                Array.prototype.forEach.call(dots.children, function (d, k) { d.classList.toggle("on", k === i); });
+                if (opts.onChange) opts.onChange(i);
+            }
+            prev.addEventListener("click", function () { go(i - 1); });
+            next.addEventListener("click", function () { go(i + 1); });
+            go(0);
+            return { go: go, index: function () { return i; } };
+        }
+
+        // Debajo de la carta (las imágenes solo se descargan cuando la sección se abre)
+        var below = document.querySelector("#agradecimiento .polaroids");
+        if (below) viewer(below, { lazy: true });
+
+        // Planes a futuro: tatuajes que algún día me haré (fotos de referencia)
+        var TATTOOS = [
+            { photos: [
+                { src: "img/tatuaje-01-1.jpg?v=1", pos: "50% 50%" },
+                { src: "img/tatuaje-01-2.jpg?v=1", pos: "45% 50%" }
+              ],
+              caption: "Quiero un tatuaje de FMAB, amaría cualquiera de esos dos… o los dos." },
+            { photos: [{ src: "img/tatuaje-02.jpg?v=1", pos: "50% 45%" }],
+              caption: "Algo de Mac, obviamente." },
+            { photos: [{ src: "img/tatuaje-03.jpg?v=1", pos: "50% 50%" }],
+              caption: "Algo así, definitivamente." },
+            { photos: [{ src: "img/tatuaje-04.png?v=1", fit: "contain" }],
+              caption: "Esto en la parte de arriba de la mano, abajo del meñique y el anular, quedaría muy cool." },
+            { photos: [{ src: "img/tatuaje-05.jpg?v=1", pos: "50% 48%" }],
+              caption: "Este me encantaría igual. La idea es: en la pierna izquierda, un patchwork con muchos chiquitos; en la derecha, este, y de ahí a la rodilla limpio." }
+        ];
+        var tattoos = document.querySelector("#planes .tattoos");
+        if (tattoos && TATTOOS.length) viewer(tattoos, { lazy: true, items: TATTOOS });
+
+        // Al abrir el sobre: pantalla completa, una por una
+        var show = document.querySelector(".polaroid-show");
+        window.__polaroidShow = function (done) {
+            if (!show) { done(); return; }
+            var inner = show.querySelector(".ps-inner");
+            inner.innerHTML = "";
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "ps-next";
+            var v;
+            function finish() {
+                show.hidden = true;
+                document.removeEventListener("keydown", onKey);
+                done();
+            }
+            function advance() {
+                if (v.index() < POLAROIDS.length - 1) v.go(v.index() + 1); else finish();
+            }
+            function onKey(e) {
+                if (e.key === "ArrowRight" || e.key === "Enter") advance();
+                else if (e.key === "ArrowLeft") v.go(v.index() - 1);
+                else if (e.key === "Escape") finish();
+            }
+            v = viewer(inner, {
+                onCard: function (card) { card.addEventListener("click", advance); },
+                onChange: function (i) { btn.textContent = i < POLAROIDS.length - 1 ? "Siguiente" : "Leer la carta"; }
+            });
+            btn.addEventListener("click", advance);
+            inner.appendChild(btn);
+            show.hidden = false;
+            document.addEventListener("keydown", onKey);
         };
     })();
 

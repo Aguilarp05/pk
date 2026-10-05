@@ -2,14 +2,15 @@
 
 Página personal que Pablo (Juan Pablo Aguilar Varela) le hizo a Karla (Karla Alessandra Sánchez Saviñón). Empezó como un CV en 2025 y en 2026 se convirtió en una página llena de secretos, misiones y easter eggs. Es un regalo: cuidar el tono, no inventar contenido personal y preguntar antes de cambiar lo que Pablo escribió.
 
-## Estado actual (septiembre 2026)
+## Estado actual (5 de octubre de 2026)
 
-- **Vista previa en la rama `preview-2026`** (subida el 28 de septiembre de 2026, incluye este `CLAUDE.md` por decisión de Pablo). `main` sigue con la versión vieja; no mezclar a `main` hasta que Pablo diga. Para el link: GitHub Pages desde la rama `preview-2026`.
-- **⚠️ QUITAR ANTES DE PUBLICAR:** el atajo temporal `"sudokuprueba"` en `index.html` (abre el sudoku desde cero para que Pablo lo pruebe).
-- **Pendientes de Pablo:**
-  1. **La carta nueva** para la sección de Agradecimiento (hoy tiene el texto viejo de 2025).
-  2. **Las Polaroids** debajo de la carta: varias fotos, cada una con su descripción; **la última es la única foto donde salen los dos**. Esa foto la tiene Karla y nunca se la mandó (ver el porqué de *DtMF*); idea: si Pablo no la tiene, usar un marco vacío tipo "Esta la tienes tú… ¿me la mandas?".
-  3. Carrusel de proyectos (necesita capturas de Ladder y Cáritas con datos de prueba).
+- **Publicada el 5 oct 2026** (cumpleaños 24 de Pablo; ese día se la entregó a Karla). Repo **`Aguilarp05/pk`** (antes `para-Karla`, le cambió el nombre para que no se note). Se subió a **`main`** (Pablo lo pidió) y también a `preview-2026`. Link: https://aguilarp05.github.io/pk/. El `CLAUDE.md` se queda en el repo (decisión de Pablo).
+- Los atajos temporales del sudoku (`sudokuprueba` / `sudokulisto`) ya se quitaron. Si se vuelven a necesitar para probar, agregarlos y quitarlos antes de subir.
+- **Decisiones que Pablo dejó así a propósito:** "esta carta" y "el cual" en Sobre mí, los tiempos ("año y medio" / "hace dos años"), el cierre "No quiero prometerte…" en Sobre mí aunque se parece a la carta, y las partes del último párrafo de la carta tal como quedaron.
+- **La carta 2026** (Agradecimiento): 10 párrafos + el último que termina en "pero quiero que sepas que" y se completa con la firma "Te quiero, siempre 🌻". Escrita el 3 y 5 de octubre.
+- **Las Polaroids** (13): arreglo `POLAROIDS` en `index.html`, fotos en `img/polaroid-NN.jpg` (collages: `polaroid-NN-M.jpg`). Al abrir el sobre salen una por una en pantalla completa ("Siguiente" / "Leer la carta") y luego se quedan en un carrusel debajo de la carta. Varias fotos en un elemento = collage (hasta 6). Tocar una foto la abre en grande. `pos` = qué parte de la foto se ve en el cuadro; `fit: "contain"` = se ve completa sobre blanco. Orden: pulsera, collage de su día, sándwich del Seven, atardecer, poemas ("Todo Rima"), clase de pintura (en 2 salen los dos, pero Pablo no las cuenta porque uno sale de fondo), collage "Otro collage de fotooooos", "¿Dónde quedó tu diadema?" → "Oh, ahí está." (van juntas, es un chiste), los dos cuadros del último día del semestre del año pasado, el girasol de Pablo ("mi obra maestra"), el frasco de Mariotte y **la última: la única foto de los dos** (selfie de grupo de cuando se iban conociendo, "Aquí empezamos").
+- **Experiencia:** Tortas el Ring dice "2026-20 oct 2026" (renuncia; Karla se entera por la página).
+- **Pendiente para después:** carrusel de proyectos (necesita capturas de Ladder y Cáritas con datos de prueba).
 
 ## Archivos
 
@@ -34,7 +35,7 @@ Página personal que Pablo (Juan Pablo Aguilar Varela) le hizo a Karla (Karla Al
 
 1. **Mensaje de bienvenida** (solo la primera vez): "Hello 👋 La página recibió una actualización. ¿La quieres ver?" con opciones 1.- Sí / 2.- 1 / 3.- 2 / 4.- ¿Por qué estás buscando otra opción que no sea sí? (todas son sí). La página está oculta hasta responder.
 2. **Página CV** con Sobre mí, Experiencia, Educación, Intereses. Al final una nota: hay **6 Hidden Mickeys** + pista del girasol + botón "💡 Pistas de los otros" (acertijos que se revelan uno por uno; los encontrados se tachan). La nota desaparece al encontrar los 6.
-3. **Hidden Mickeys** (6, atributo `data-hm`): girasol, peonía, Kinder "Mi Casita", título "Video Juegos", título "Cine" y pie de página. **Ninguno puede estar dentro de una sección bloqueada.** Al encontrar los 6: sube la página al inicio, se activa el **modo Disney** y se desbloquea el botón de **misiones** (Llave Espada).
+3. **Hidden Mickeys** (6, atributo `data-hm`): girasol, peonía, Kinder "Mi Casita", título "Videojuegos", título "Cine" y pie de página. **Ninguno puede estar dentro de una sección bloqueada.** Al encontrar los 6: sube la página al inicio, se activa el **modo Disney** y se desbloquea el botón de **misiones** (Llave Espada).
 4. **Misiones secretas** (21 en total, arreglo `MISSIONS` en `index.html`). Cada una tiene pregunta, pista (todas tienen, sin emojis), respuestas válidas (sin importar mayúsculas ni acentos), un código o recompensa y la frase de Pablo (`reason`).
 5. **Misión 21** es secreta: no aparece ni cuenta hasta completar las 20. Al completar la 20 sale "Wowowow, si eran 20… ¿por qué ahora dice 21? 👀" y aparece. Pregunta: "¿Cuál es tu nombre?" → Karla. Frase: "Siempre te he dicho que es un nombre muy lindo."
 6. Al resolver la 21: pantalla estilo Smash "¡Un nuevo retador se acerca!" / "¿Pensaste que sería tan fácil?" → **sudoku** → pantalla "¡Felicidades! Tu tiempo" + comparación con el de Pablo → botón "Abrir la carta" → animación del sobre (sello de girasol) → se desbloquea la sección **Agradecimiento** con la carta.
@@ -74,12 +75,16 @@ Todas las misiones ya tienen su frase.
 - **Secciones bloqueadas:** `<section data-lock="clave">` no se muestra hasta resolver la misión con ese `code`. Hoy: Planes a futuro (`hamburguesa`), Playlist (`macmiller`) y Agradecimiento (`karla`). Al inicio la página termina en Intereses.
 - **Desfile de personajes:** apagado hasta escribir "25" (la primera vez salen todos en fila; luego uno por minuto). Personajes: Sora y Pikachu, Isaac, Ed y Al, Luffy (se estira), Anakin→Vader, Ichigo (Bankai), Ted Mosby, Spider-Man, Koro-sensei, Snoopy, Mia y Sebastian (La La Land), Ponyboy/Johnny/Dally. En modo Disney: Mickey, Stitch, Buzz, Olaf, Nemo y Dory, Alegría.
 - **Caparazón azul:** se desbloquea con "33"; después 33% de probabilidad en cada desfile. Persigue al personaje que va adelante.
+- **Nota de la peonía:** flecha a mano (tipografía Caveat) "Es una peonía, por si cualquier cosa jajaj".
 - **Otros easter eggs:** tocar el girasol (gira y suelta pétalos), tocar la peonía (pétalos rosas), cielo nocturno automático de 7 pm a 6 am, horas espejo automáticas, cañón al tocar Londres en el mapa.
 - **Modo Disney:** castillo, fuegos artificiales, arco de polvo de hadas, linternas de Enredados, casa de Up, esferas de memoria de Intensamente 1 y 2 (se tocan y dicen la emoción), nenúfares con Tiana y Naveen, Evangeline y el gorro de mago de Mickey sobre el nombre.
 - **Fondos que se apagan entre sí:** eras, Disney, Van Gogh, Stay gold y Sonora.
+- **Tatuajes a futuro** (en Planes a futuro, debajo del mapa): arreglo `TATTOOS` en `index.html`, mismo carrusel que las Polaroids (fotos de referencia en `img/tatuaje-NN-M.jpg`). Hoy: FMAB (ouroboros / reloj de Ed "Don't forget 3.Oct.10"), Mac Miller (portada de The Divine Feminine), "Algo así, definitivamente." (calavera roja con flores y hongos), "I love you dude. Let it rip" (The Bear, en la mano) y flores en la pierna derecha. Pendientes que mencionó: los de The Bear ("Let it rip").
+- **Mi plan** (en Planes a futuro, debajo de los tatuajes): línea de tiempo con el mismo estilo que Experiencia. 2026-2027 trabajar en Ladder y otra app en lo que termina el Tec (conseguir clientes para Ladder); 2026-2027 juntar para un carro; 2026-2030 trabajo que le permita estudiar una maestría y juntar para pagarla.
+- **Algún día** (en Planes a futuro, debajo de "Mi plan"): lista sin fecha: viajar a uno de los países (al menos uno antes de 2028), publicar un libro, llevar a su papá a Italia y a un partido de la NFL, ir a todos los conciertos posibles, abrir un restaurante, ser feliz (el último en negritas).
 - **Mapa de viajes:** conocidos México y EE. UU.; quiere conocer Alemania, España, Italia, Ecuador y Colombia; Reino Unido en rojo Arsenal ("E IR A UN PARTIDO DEL ARSENAL", punto en Londres). Para un país nuevo: cambiar `wish` a `visited` en `places`.
 - **Letterboxd:** perfil `letterboxd.com/juanav5`. Sus 4: La La Land, Spider-Man: Into the Spider-Verse, Good Will Hunting, Star Wars Ep. II. Mención especial: The Holdovers. Cada portada muestra una frase al tocarla. Las portadas se cargan del CDN de Letterboxd.
-- **Sudoku:** `PUZZLE`/`SOLUTION` en `index.html` (26 pistas, solución única, resoluble con lógica). Marca en rojo los números que no van (contra la solución), 3 errores = se reinicia todo, los números completos se apagan, botón de pausa que tapa el tablero, cronómetro que solo corre con el sudoku abierto y se guarda. "Empezar de nuevo" reinicia tablero, errores y tiempo. **Tiempo a vencer: 07:07 (el de Pablo)**, en `PABLO`.
+- **Sudoku:** `PUZZLE`/`SOLUTION` en `index.html` (26 pistas, solución única, resoluble con lógica). Marca en rojo los números que no van (contra la solución), 3 errores = se reinicia todo, los números completos se apagan, botón de pausa que tapa el tablero, cronómetro que solo corre con el sudoku abierto y se guarda. "Empezar de nuevo" reinicia tablero, errores y tiempo. **Tiempo a vencer: 07:07 (el de Pablo)**, en `PABLO`; su captura (`img/sudoku-pablo.jpg`) sale en los resultados y solo se descarga al terminar. Frases: gana Karla "Alaaaaa, ¿cómo le hiciste? Trampa, ¿verdad?", empate "Bruh, qué casualidad.", gana Pablo "Qué te puedo decir, soy bueno en todo.". La nota de Hidden Mickeys dice "6 objetos perdidos" y el contador "Mickeys ocultos" (nunca "Hidden Mickeys" ni emojis en esos textos).
 
 ## Playlist "KASS"
 
